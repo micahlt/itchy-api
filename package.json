@@ -1,0 +1,23 @@
+{
+  "name": "itchy-api",
+  "version": "1.0.0",
+  "description": "The API for the Itchy mobile app",
+  "main": "index.js",
+  "dependencies": {
+    "node-fetch": "^2.6.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/micahlt/itchy-api.git"
+  },
+  "author": "Micah Lindley",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/micahlt/itchy-api/issues"
+  },
+  "homepage": "https://github.com/micahlt/itchy-api#readme"
+}
