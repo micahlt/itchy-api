@@ -3,7 +3,7 @@ module.exports = (req, res) => {
   let supportedModes = ["popular", "trending", "recent"];
   let offset = req.query.commentoffset || 0;
   let id = req.query.id || undefined;
-  let returnComments = req.query.comments.toLowerCase() == "true" ? true : false;
+  let returnComments = req.query.comments == "true" ? true : false;
   console.log(`Returning comments: ${returnComments}`)
   if (id) {
     fetch(`https://api.scratch.mit.edu/projects/${id}`)
