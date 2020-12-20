@@ -1,6 +1,6 @@
 var fetch = require('node-fetch');
 module.exports = (req, res) => {
-  let page = req.query.p;
+  let page = req.query.page;
   fetch(`https://api.scratch.mit.edu/proxy/featured`)
     .then((response) => {
       if (response.ok) {
@@ -34,6 +34,9 @@ module.exports = (req, res) => {
         case "recent": {
           res.json(data.curator_most_recent_projects);
           break;
+        }
+        default: {
+          res.status(400).send(`The page parameter is required, but recieved a value of ${page}`)
         }
       }
     })
