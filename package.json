@@ -4,7 +4,9 @@
   "description": "The API for the Itchy mobile app",
   "main": "index.js",
   "dependencies": {
-    "node-fetch": "^2.6.1"
+    "htmlparser": "^1.7.7",
+    "node-fetch": "^2.6.1",
+    "node-html-parser": "^2.0.0"
   },
   "devDependencies": {},
   "scripts": {
