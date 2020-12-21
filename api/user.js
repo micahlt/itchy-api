@@ -53,7 +53,10 @@ module.exports = (req, res) => {
                   }
                   commentArray.push({
                     id,
-                    user,
+                    author: {
+                      username: user,
+                      image: 'https:' + item.querySelector('.avatar').getAttribute('src')
+                    },
                     content,
                     timestamp,
                     replies
