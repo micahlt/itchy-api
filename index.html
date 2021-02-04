@@ -66,28 +66,41 @@
     </ul>
     </p>
     <br><br><br>
+    <h2 id="auth"><code>POST /api/auth</code></h2>
+    <p>Returns a session object. This requires the body header to be set (for security reasons) instead of easier query parameters.<br><br>
+      <b>Example body header:</b><br>
+    <div style="background: #D3D3D3">
+      <pre>
+  {
+    "username": "mycoolusername",
+    "password": "$uper_Secr3t-passWord"
+  }
+</pre>
+    </div>
+    </p>
+    <br><br><br>
     <h2 id="comment-object">Non-standard comment object</h2>
     <p>The non-standard comment object was created because user and studio comments still run on the depreciated <a href="https://en.scratch-wiki.info/wiki/Scratch_API#site-api_Interface_.28Deprecated.29" target="_blank">site-api interface</a> that
       returns comments as HTML. The itchy-api wrapper compiles that HTML into custom JSON objects and returns that instead. A non-standard comment object looks like this: <br><br>
     <div style="background: #D3D3D3">
       <pre>
-      {
-        "id": "12345678",
-        "author": {
-          "username": "griffpatch",
-          "image": "//scratch.mit.edu/griffpatch.png",
-      }
-        "content": "hello",
-        "timestamp": "2020-12-20T22:17:06Z",
-        "replies": [
-            {
-                "id": "12345679",
-                "user": "Will_Wam",
-                "content": "@griffpatch what is up",
-                "timestamp": "2020-12-20T22:37:38Z"
-            }
-        ]
-      }
+  {
+    "id": "12345678",
+    "author": {
+      "username": "griffpatch",
+      "image": "//scratch.mit.edu/griffpatch.png",
+  }
+    "content": "hello",
+    "timestamp": "2020-12-20T22:17:06Z",
+    "replies": [
+        {
+            "id": "12345679",
+            "user": "Will_Wam",
+            "content": "@griffpatch what is up",
+            "timestamp": "2020-12-20T22:37:38Z"
+        }
+    ]
+  }
       </pre>
     </div>
     </p>
@@ -98,7 +111,7 @@
       <li>Replace non-standard comment objects with ones that match Scratch</li>
       <li>Add studio endpoints</li>
       <li>Add POST-based endpoints</li>
-      <li>Add authentication utilities</li>
+      <li><s>Add authentication utilities</s> <em>done</em></li>
     </ul>
     </p>
   </main>

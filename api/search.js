@@ -10,14 +10,23 @@ module.exports = (req, res) => {
         if (response.ok) {
           return response.json();
         } else {
-          res.status(500).send(`There was an issue with the server: ${response.status}.`);
+          console.error(`Qwant wants us to slow down - ${response.status}.`);
+          res.status(429).send(`Please allow a cooldown period: ${response.status}.`);
+          return;
         }
       })
       .then((data) => {
-        if (data.status == "success") {
-          res.json(data.data.result.items);
+        if (data) {
+          if (data.status == "success") {
+            res.json(data.data.result.items);
+          } else {
+            res.status(500).send(`There was an issue with the server.  Try again later.`);
+          }
         } else {
-          res.status(500).send(`There was an issue with the server.  Try again later.`);
+          try {
+            res.status(500).send(`There was an issue with the server.  Try again later.`);
+          } catch {}
+
         }
       })
   }

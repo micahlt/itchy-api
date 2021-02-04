@@ -35,6 +35,10 @@ h2 {
   padding-bottom: 9px;
 }
 
+ul {
+  list-style-position: inside;
+}
+
 p, li {
   font-size: 15px;
   color: black;
@@ -121,5 +125,5 @@ input[type=button]:hover {
 
 div {
   padding: 5px;
-  overflow-x: scroll;
+  overflow-x: auto;
 }
