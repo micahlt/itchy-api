@@ -4,7 +4,6 @@ module.exports = (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
   let handler = async () => {
-    console.log(password)
     const response = await fetch("https://scratch.mit.edu/login/", {
       headers: {
         "x-csrftoken": "a",
