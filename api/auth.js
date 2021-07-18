@@ -4,19 +4,23 @@ module.exports = (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
   let handler = async () => {
-    const response = await fetch("https://scratch.mit.edu/login/", {
+    const response = await fetch("https://scratch.mit.edu/accounts/login/", {
+      credentials: "include",
+      method: "POST",
       headers: {
-        "x-csrftoken": "a",
-        "x-requested-with": "XMLHttpRequest",
-        "Cookie": "scratchcsrftoken=a;scratchlanguage=en;",
-        "referer": "https://scratch.mit.edu"
+        Cookie: "scratchcsrftoken=a; scratchlanguage=en",
+        "User-Agent": "Firefox",
+        Origin: "https://scratch.mit.edu",
+        Referer: "https://scratch.mit.edu/",
+        "X-CSRFToken": "a",
+        "X-Requested-With": "XMLHttpRequest",
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
+        useMessages: true,
         username,
-        password,
-        useMessages: true
-      }),
-      method: "POST"
+        password
+      })
     })
     const status = response.status;
     if (status == 200) {
@@ -27,6 +31,7 @@ module.exports = (req, res) => {
       res.json(json);
       return 0;
     } else {
+      console.log(response, '<- Response')
       res.status(status).send(`Error ${response.statusText}`);
       return 1;
     }
