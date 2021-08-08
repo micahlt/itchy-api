@@ -24,10 +24,15 @@ module.exports = (req, res) => {
     })
     const status = response.status;
     if (status == 200) {
-      const session = response.headers.get("set-cookie").match(/\"(.*)\"/g)[0];
-      const body = await response.text();
-      let json = {};
-      json = JSON.parse(body);
+      const session = {
+        "session": response.headers.get("set-cookie").match(/\"(.*)\"/g)[0]
+      };
+      let body = await response.text();
+      body = JSON.parse(body)[0];
+      let json = {
+        ...body,
+        ...session
+      };
       res.json(json);
       return 0;
     } else {
