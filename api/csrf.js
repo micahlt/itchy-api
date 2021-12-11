@@ -4,7 +4,7 @@ module.exports = (req, res) => {
     const response = await fetch("https://scratch.mit.edu/csrf_token/", {
       headers: {
         "x-requested-with": "XMLHttpRequest",
-        "Cookie": "scratchcsrftoken=a;scratchlanguage=en;",
+        "Cookie": "scratchlanguage=en;",
         "referer": "https://scratch.mit.edu"
       }
     })
