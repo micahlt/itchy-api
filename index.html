@@ -1,89 +1,206 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <title>itchy-api docs</title>
-  <link href="style.css" rel="stylesheet" type="text/css" />
-</head>
-
-<body>
-  <main class="big-margin">
-    <h1 class="lowercase">itchy-api docs</h1><br>
-    <p>This is the official documentation for the itchy-api project, which is an <em>incomplete</em> wrapper for the <a href="https://scratch.mit.edu/" target="_blank">Scratch</a> API that runs on <a href="https://vercel.com/"
-        target="_blank">Vercel</a>'s <a href="https://vercel.com/docs/serverless-functions/introduction" target="_blank">Serverless Functions</a>. You can view the project on GitHub <a href="https://github.com/micahlt/itchy-api"
-        target="_blank">here</a>. We're open for contributions, so feel free to <a href="https://github.com/micahlt/itchy-api" target="_blank">fork the repository</a> and make a pull request! Many thanks to <a
-        href="https://github.com/towerofnix/scratch-api-unofficial-docs" target="_blank">towerofnix/scratch-api-unofficial-docs</a> for some object definitions.</p>
-    <br>
-    <h2 id="explore"><code>GET /api/explore</code></h2>
-    <p>Returns an array of <a href="https://towerofnix.github.io/scratch-api-unofficial-docs/api/definitions/project_object.html" target="_blank">project objects</a>.<br><br>
-      <b>Query params:</b><br>
-    <ul>
-      <li><code>mode</code> - method to sort, options of <code>popular</code>, <code>trending</code>, and <code>recent</code>. Defaults to <code>popular</code></li>
-      <li><code>offset</code> - see <a href="http://towerofnix.github.io/scratch-api-unofficial-docs/etc/limits_and_offsets.html" target="_blank">Limits and Offsets docs</a>. Defaults to <code>0</code></li>
-      <li><code>tag</code> - return only projects with a specific tag, value can be any string. Defaults to <code>undefined</code></li>
-    </ul>
-    </p><br><br><br>
-    <h2 id="frontpage"><code>GET /api/frontpage</code></h2>
-    <p>Returns an array of <a href="https://towerofnix.github.io/scratch-api-unofficial-docs/api/definitions/project_object.html" target="_blank">project objects</a>.<br><br>
-      <b>Query params:</b><br>
-    <ul>
-      <li><code>page</code> <em>required</em> - section of the Front Page to grab, values of <code>featured</code>, <code>toploved</code>, <code>topremixed</code>, <code>sds</code>, <code>curated</code>, and <code>recent</code>. Defaults to
-        <code>undefined</code></li>
-    </ul>
-    </p>
-    <br><br><br>
-    <h2 id="project"><code>GET /api/project</code></h2>
-    <p>Returns a single <a href="https://towerofnix.github.io/scratch-api-unofficial-docs/api/definitions/project_object.html" target="_blank">project object</a> OR a <a
-        href="http://towerofnix.github.io/scratch-api-unofficial-docs/api/definitions/comment_object.html" target="_blank">standard comment object</a>, depending on the value of the <code>comments</code> parameter.<br><br>
-      <b>Query params:</b><br>
-    <ul>
-      <li><code>id</code> <em>required</em> - the project ID to retrieve. Defaults to <code>undefined</code></li>
-      <li><code>comments</code> - whether or not to grab comments from a project, value must be a boolean. Defaults to <code>false</code></li>
-      <li><code>offset</code> - only applicable if the <code>comments</code> parameter is true. See <a href="http://towerofnix.github.io/scratch-api-unofficial-docs/etc/limits_and_offsets.html" target="_blank">Limits and Offsets docs</a>. Defaults to
-        <code>0</code></li>
-    </ul>
-    </p>
-    <br><br><br>
-    <h2 id="user"><code>GET /api/user</code></h2>
-    <p>Returns a single <a href="https://towerofnix.github.io/scratch-api-unofficial-docs/api/definitions/user_object.html" target="_blank">user object</a> OR a <a href="#comment-object">non-standard comment object</a>, depending on the value of the
-      <code>comments</code> parameter.<br><br>
-      <b>Query params:</b><br>
-    <ul>
-      <li><code>user</code> <em>required</em> - the username to retrieve. Defaults to <code>undefined</code></li>
-      <li><code>comments</code> - whether or not to grab comments from a user, value must be a boolean. Defaults to <code>false</code></li>
-      <li><code>offset</code> - only applicable if the <code>comments</code> parameter is true. See <a href="http://towerofnix.github.io/scratch-api-unofficial-docs/etc/limits_and_offsets.html" target="_blank">Limits and Offsets docs</a>. Defaults to
-        <code>0</code></li>
-    </ul>
-    </p>
-    <br><br><br>
-    <h2 id="search"><code>GET /api/search</code></h2>
-    <p>Returns a single <a href="https://github.com/locness3/qwant-api-docs#response" target="_blank">Qwant search object</a>.<br><br>
-      <b>Query params:</b><br>
-    <ul>
-      <li><code>q</code> <em>required</em> - the query to search. Defaults to <code>undefined</code></li>
-    </ul>
-    </p>
-    <br><br><br>
-    <h2 id="auth"><code>POST /api/auth</code></h2>
-    <p>Returns a session object. This requires the body header to be set (for security reasons) instead of easier query parameters.<br><br>
-      <b>Example body header:</b><br>
-    <div style="background: #D3D3D3">
-      <pre>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>itchy-api docs</title>
+    <link href="style.css" rel="stylesheet" type="text/css"/>
+  </head>
+  <body>
+    <main class="big-margin">
+      <h1 class="lowercase">itchy-api docs</h1><br>
+      <p>This is the official documentation for the itchy-api project, which is an
+        <em>incomplete</em>
+        wrapper for the
+        <a href="https://scratch.mit.edu/" target="_blank">Scratch</a>
+        API that runs on
+        <a href="https://vercel.com/" target="_blank">Vercel</a>'s
+        <a href="https://vercel.com/docs/serverless-functions/introduction" target="_blank">Serverless Functions</a>. You can view the project on GitHub
+        <a href="https://github.com/micahlt/itchy-api" target="_blank">here</a>. We're open for contributions, so feel free to
+        <a href="https://github.com/micahlt/itchy-api" target="_blank">fork the repository</a>
+        and make a pull request! Many thanks to
+        <a href="https://github.com/towerofnix/scratch-api-unofficial-docs" target="_blank">towerofnix/scratch-api-unofficial-docs</a>
+        for some object definitions.</p>
+      <br>
+      <h2 id="explore">
+        <code>GET /api/explore</code>
+      </h2>
+      <p>Returns an array of
+        <a href="https://towerofnix.github.io/scratch-api-unofficial-docs/api/definitions/project_object.html" target="_blank">project objects</a>.<br><br>
+        <b>Query params:</b><br>
+        <ul>
+          <li>
+            <code>mode</code>
+            - method to sort, options of
+            <code>popular</code>,
+            <code>trending</code>, and
+            <code>recent</code>. Defaults to
+            <code>popular</code>
+          </li>
+          <li>
+            <code>offset</code>
+            - see
+            <a href="http://towerofnix.github.io/scratch-api-unofficial-docs/etc/limits_and_offsets.html" target="_blank">Limits and Offsets docs</a>. Defaults to
+            <code>0</code>
+          </li>
+          <li>
+            <code>tag</code>
+            - return only projects with a specific tag, value can be any string. Defaults to
+            <code>undefined</code>
+          </li>
+        </ul>
+      </p><br><br><br>
+      <h2 id="frontpage">
+        <code>GET /api/frontpage</code>
+      </h2>
+      <p>Returns an array of
+        <a href="https://towerofnix.github.io/scratch-api-unofficial-docs/api/definitions/project_object.html" target="_blank">project objects</a>.<br><br>
+        <b>Query params:</b><br>
+        <ul>
+          <li>
+            <code>page</code>
+            <em>required</em>
+            - section of the Front Page to grab, values of
+            <code>featured</code>,
+            <code>toploved</code>,
+            <code>topremixed</code>,
+            <code>sds</code>,
+            <code>curated</code>, and
+            <code>recent</code>. Defaults to
+            <code>undefined</code>
+          </li>
+        </ul>
+      </p>
+      <br><br><br>
+      <h2 id="project">
+        <code>GET /api/project</code>
+      </h2>
+      <p>Returns a single
+        <a href="https://towerofnix.github.io/scratch-api-unofficial-docs/api/definitions/project_object.html" target="_blank">project object</a>
+        OR a
+        <a href="http://towerofnix.github.io/scratch-api-unofficial-docs/api/definitions/comment_object.html" target="_blank">standard comment object</a>, depending on the value of the
+        <code>comments</code>
+        parameter.<br><br>
+        <b>Query params:</b><br>
+        <ul>
+          <li>
+            <code>id</code>
+            <em>required</em>
+            - the project ID to retrieve. Defaults to
+            <code>undefined</code>
+          </li>
+          <li>
+            <code>comments</code>
+            - whether or not to grab comments from a project, value must be a boolean. Defaults to
+            <code>false</code>
+          </li>
+          <li>
+            <code>offset</code>
+            - only applicable if the
+            <code>comments</code>
+            parameter is true. See
+            <a href="http://towerofnix.github.io/scratch-api-unofficial-docs/etc/limits_and_offsets.html" target="_blank">Limits and Offsets docs</a>. Defaults to
+            <code>0</code>
+          </li>
+        </ul>
+      </p>
+      <br><br><br>
+      <h2 id="user">
+        <code>GET /api/user</code>
+      </h2>
+      <p>Returns a single
+        <a href="https://towerofnix.github.io/scratch-api-unofficial-docs/api/definitions/user_object.html" target="_blank">user object</a>
+        OR a
+        <a href="#comment-object">non-standard comment object</a>, depending on the value of the
+        <code>comments</code>
+        parameter.<br><br>
+        <b>Query params:</b><br>
+        <ul>
+          <li>
+            <code>user</code>
+            <em>required</em>
+            - the username to retrieve. Defaults to
+            <code>undefined</code>
+          </li>
+          <li>
+            <code>comments</code>
+            - whether or not to grab comments from a user, value must be a boolean. Defaults to
+            <code>false</code>
+          </li>
+          <li>
+            <code>offset</code>
+            - only applicable if the
+            <code>comments</code>
+            parameter is true. See
+            <a href="http://towerofnix.github.io/scratch-api-unofficial-docs/etc/limits_and_offsets.html" target="_blank">Limits and Offsets docs</a>. Defaults to
+            <code>0</code>
+          </li>
+        </ul>
+      </p>
+      <br><br><br>
+      <h2 id="search">
+        <code>GET /api/search</code>
+      </h2>
+      <p>Returns a single
+        <a href="https://github.com/locness3/qwant-api-docs#response" target="_blank">Qwant search object</a>.<br><br>
+        <b>Query params:</b><br>
+        <ul>
+          <li>
+            <code>q</code>
+            <em>required</em>
+            - the query to search. Defaults to
+            <code>undefined</code>
+          </li>
+        </ul>
+      </p>
+      <br><br><br>
+      <h2 id="csrf">
+        <code>GET /api/csrf</code>
+      </h2>
+      <p>Returns a single csrf token from the API.
+      </p>
+      <br><br><br>
+      <h2 id="image">
+        <code>GET /api/image</code>
+      </h2>
+      <p>Returns an object containing a
+        <code>data</code>
+        value (the base64 data of an image) and a
+        <code>requested</code>
+        value (the original requested URL).<br><br>
+        <b>Query params:</b><br>
+        <ul>
+          <li>
+            <code>url</code>
+            <em>required</em>
+            - the image url. Defaults to
+            <code>undefined</code>
+          </li>
+        </ul>
+      </p>
+      <br><br><br>
+      <h2 id="auth">
+        <code>POST /api/auth</code>
+      </h2>
+      <p>Returns a session object. This requires the body header to be set (for security reasons) instead of easier query parameters.<br><br>
+        <b>Example body header:</b><br>
+        <div style="background: #D3D3D3">
+          <pre>
   {
     "username": "mycoolusername",
-    "password": "$uper_Secr3t-passWord"
+    "password": "$uper_secr3t-password"
   }
 </pre>
-    </div>
-    </p>
-    <br><br><br>
-    <h2 id="comment-object">Non-standard comment object</h2>
-    <p>The non-standard comment object was created because user and studio comments still run on the depreciated <a href="https://en.scratch-wiki.info/wiki/Scratch_API#site-api_Interface_.28Deprecated.29" target="_blank">site-api interface</a> that
-      returns comments as HTML. The itchy-api wrapper compiles that HTML into custom JSON objects and returns that instead. A non-standard comment object looks like this: <br><br>
-    <div style="background: #D3D3D3">
-      <pre>
+        </div>
+      </p>
+      <br><br><br>
+      <h2 id="comment-object">Non-standard comment object</h2>
+      <p>The non-standard comment object was created because user and studio comments still run on the depreciated
+        <a href="https://en.scratch-wiki.info/wiki/Scratch_API#site-api_Interface_.28Deprecated.29" target="_blank">site-api interface</a>
+        that returns comments as HTML. The itchy-api wrapper compiles that HTML into custom JSON objects and returns that instead. A non-standard comment object looks like this:
+        <br><br>
+        <div style="background: #D3D3D3">
+          <pre>
   {
     "id": "12345678",
     "author": {
@@ -91,31 +208,33 @@
       "image": "//scratch.mit.edu/griffpatch.png",
   }
     "content": "hello",
-    "timestamp": "2020-12-20T22:17:06Z",
+    "timestamp": "2020-12-20t22:17:06z",
     "replies": [
         {
             "id": "12345679",
-            "user": "Will_Wam",
+            "user": "will_wam",
             "content": "@griffpatch what is up",
-            "timestamp": "2020-12-20T22:37:38Z"
+            "timestamp": "2020-12-20t22:37:38z"
         }
     ]
   }
       </pre>
-    </div>
-    </p>
-    <br><br><br>
-    <h2 id="to-do">To-do</h2>
-    <p>While itchy-api is largely functional for now, there is still much to work on:<br><br>
-    <ul>
-      <li>Replace non-standard comment objects with ones that match Scratch</li>
-      <li>Add studio endpoints</li>
-      <li>Add POST-based endpoints</li>
-      <li><s>Add authentication utilities</s> <em>done</em></li>
-    </ul>
-    </p>
-  </main>
-  <script src="script.js"></script>
-</body>
-
+        </div>
+      </p>
+      <br><br><br>
+      <h2 id="to-do">To-do</h2>
+      <p>While itchy-api is largely functional for now, there is still much to work on:<br><br>
+        <ul>
+          <li>Replace non-standard comment objects with ones that match Scratch</li>
+          <li>Add studio endpoints</li>
+          <li>Add POST-based endpoints</li>
+          <li>
+            <s>Add authentication utilities</s>
+            <em>done</em>
+          </li>
+        </ul>
+      </p>
+    </main>
+    <script src="script.js"></script>
+  </body>
 </html>
