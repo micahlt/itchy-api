@@ -1,7 +1,8 @@
 var fetch = require("node-fetch");
 module.exports = (req, res) => {
-  const username = req.body.username;
-  const password = req.body.password;
+  const parsed = JSON.parse(req.body);
+  const username = parsed.username;
+  const password = parsed.password;
   console.log(username, password);
   let handler = async () => {
     const response = await fetch("https://scratch.mit.edu/accounts/login/", {
