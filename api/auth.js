@@ -1,6 +1,5 @@
-var fetch = require('node-fetch');
+var fetch = require("node-fetch");
 module.exports = (req, res) => {
-  req.body = JSON.parse(req.body);
   const username = req.body.username;
   const password = req.body.password;
   let handler = async () => {
@@ -14,32 +13,32 @@ module.exports = (req, res) => {
         Referer: "https://scratch.mit.edu/",
         "X-CSRFToken": "a",
         "X-Requested-With": "XMLHttpRequest",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         useMessages: true,
         username,
-        password
-      })
-    })
+        password,
+      }),
+    });
     const status = response.status;
     if (status == 200) {
       const session = {
-        "session": response.headers.get("set-cookie").match(/\"(.*)\"/g)[0]
+        session: response.headers.get("set-cookie").match(/\"(.*)\"/g)[0],
       };
       let body = await response.text();
       body = JSON.parse(body)[0];
       let json = {
         ...body,
-        ...session
+        ...session,
       };
       res.json(json);
       return 0;
     } else {
-      console.log(response, '<- Response')
+      console.log(response, "<- Response");
       res.status(status).send(`Error ${response.statusText}`);
       return 1;
     }
-  }
+  };
   handler();
-}
+};
