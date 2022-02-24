@@ -121,7 +121,12 @@ module.exports = (req, res) => {
                                     .getAttribute("title");
                                   replies.push({
                                     id: id2,
-                                    user: user2,
+                                    author: {
+                                      username: user2,
+                                      image: item2
+                                        .querySelector(".avatar")
+                                        .getAttribute("src"),
+                                    },
                                     content: content2,
                                     timestamp: timestamp2,
                                   });
@@ -131,11 +136,9 @@ module.exports = (req, res) => {
                               id,
                               author: {
                                 username: user,
-                                image:
-                                  "https:" +
-                                  item
-                                    .querySelector(".avatar")
-                                    .getAttribute("src"),
+                                image: item
+                                  .querySelector(".avatar")
+                                  .getAttribute("src"),
                               },
                               content,
                               timestamp,
