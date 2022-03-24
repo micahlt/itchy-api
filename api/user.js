@@ -66,7 +66,7 @@ module.exports = (req, res) => {
                   res.json(data);
                 } else {
                   fetch(
-                    `https://scratch.mit.edu/site-api/comments/user/${username}/?page=1`
+                    `https://scratch.mit.edu/site-api/comments/user/${username}/?page=${offset}`
                   )
                     .then((response2) => {
                       if (response2.ok) {
